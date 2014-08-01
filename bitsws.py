@@ -43,7 +43,7 @@ class BitsWS(object):
         def ping(*args):
             while 1:
                 #print "Keep-alive"
-                ws.send("Hi")
+                self.ws.send("Hi")
                 time.sleep(15)
         thread.start_new_thread(ping, ())    
 
