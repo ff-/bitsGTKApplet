@@ -3,7 +3,7 @@ Bits PyGTK Applet
 
 A magic GTK Applet for http://bits.poul.org
 
-Stays on your status bar, featuring Websockets, browser callback, and fancy icons!
+Stays on your status bar, featuring Websockets, system notifications, browser callback, and fancy icons!
 
 ![Bits Closed](http://ferrai.tk/bits_status.png)
 
