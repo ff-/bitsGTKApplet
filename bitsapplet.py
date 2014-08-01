@@ -79,7 +79,7 @@ def closed_callback():
 ##### Main here
 
 prev_status = ""
-status_string = "Closed"
+status_string = "Reaching server..."
 menuitem_status = gtk.MenuItem(item_print_status(status_string))
 ind = appindicator.Indicator ("example-simple-client",
                                 "window-close-symbolic", #was indicator-messages
@@ -110,5 +110,4 @@ if __name__== "__main__":
     menu.append(menuitem_exit)
 
     ind.set_menu(menu)
-
     gtk.main()
