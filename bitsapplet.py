@@ -62,7 +62,7 @@ def applet_exit(w):
     sys.exit(0)
 
 def item_print_status(status):
-    return "Status: %s" % status
+    return "Bits Status: %s" % status
 
 ##### Callbacks
 
