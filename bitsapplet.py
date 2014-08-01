@@ -1,57 +1,13 @@
 #!/usr/bin/env python
 
-import websocket
-import json
-import time
+from bitsws import BitsWS
 import thread
 import gtk
 import appindicator
 import sys
 import subprocess
-import time
 import gobject
 gobject.threads_init()
-
-##### Websocket things
-
-def ws_on_message(ws, message):
-    global prev_status
-    try:
-        cur_status = json.loads(message)["status"]["value"]
-        if cur_status != prev_status:
-            prev_status = cur_status
-            if cur_status == "open":
-                opened_callback()
-            elif cur_status == "closed":
-                closed_callback()
-            else:
-                print "WTF?" # Se entra qui, non va bene
-    except:
-        pass
-
-def ws_on_error(ws, error):
-    print "Error: " + error.message
-    print "Reconnecting..."    
-    start_websocket()
-
-def ws_on_close(ws):
-    print "Connection closed"
-
-def ws_on_open(ws):
-    def ping(*args):
-        while 1:
-            #print "Keep-alive"
-            ws.send("Hi")
-            time.sleep(15)
-    thread.start_new_thread(ping, ())    
-
-def start_websocket():
-    ws = websocket.WebSocketApp("wss://bits.poul.org/ws",
-                                on_message = ws_on_message,
-                                on_error = ws_on_error,
-                                on_close = ws_on_close,
-                                on_open = ws_on_open)
-    ws.run_forever()
 
 ##### GTK things
 
@@ -76,7 +32,6 @@ def closed_callback():
 
 ##### Main here
 
-prev_status = ""
 status_string = "Reaching server..."
 menuitem_status = gtk.MenuItem(item_print_status(status_string))
 ind = appindicator.Indicator ("bits-gtk-client",
@@ -85,7 +40,10 @@ ind = appindicator.Indicator ("bits-gtk-client",
                                 appindicator.CATEGORY_APPLICATION_STATUS)
 
 if __name__== "__main__":
-    thread.start_new_thread(start_websocket, ())
+    #initialize and start websocket in a different thread
+    ws = BitsWS(opened_callback, closed_callback)
+    thread.start_new_thread(ws.start_websocket, ())
+
     ind.set_status (appindicator.STATUS_ACTIVE)
     ind.set_attention_icon ("indicator-messages-new")
 
