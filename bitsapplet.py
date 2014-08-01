@@ -67,12 +67,10 @@ def item_print_status(status):
 ##### Callbacks
 
 def opened_callback():
-    global ind
     ind.set_icon("object-select-symbolic")
     menuitem_status.set_label(item_print_status("Open"))
 
 def closed_callback():
-    global ind
     ind.set_icon("window-close-symbolic")
     menuitem_status.set_label(item_print_status("Closed"))
 
@@ -81,7 +79,7 @@ def closed_callback():
 prev_status = ""
 status_string = "Reaching server..."
 menuitem_status = gtk.MenuItem(item_print_status(status_string))
-ind = appindicator.Indicator ("example-simple-client",
+ind = appindicator.Indicator ("bits-gtk-client",
                                 "window-close-symbolic", #was indicator-messages
                                 #object-select-symbolic
                                 appindicator.CATEGORY_APPLICATION_STATUS)
