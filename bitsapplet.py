@@ -14,10 +14,20 @@ gobject.threads_init()
 def opened_callback():
     ind.set_icon("object-select-symbolic")
     menuitem_status.set_label(item_print_status("Open"))
+    subprocess.call(["notify-send", 
+                    "--icon=object-select-symbolic", 
+                    "--expire-time=2000", 
+                    "BITS Status Update", 
+                    "Open"])
 
 def closed_callback():
     ind.set_icon("window-close-symbolic")
     menuitem_status.set_label(item_print_status("Closed"))
+    subprocess.call(["notify-send", 
+                    "--icon=window-close-symbolic", 
+                    "--expire-time=2000", 
+                    "BITS Status Update", 
+                    "Closed"])
 
 def applet_status(w):
     subprocess.call(["xdg-open", "https://bits.poul.org"])
