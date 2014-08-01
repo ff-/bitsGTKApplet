@@ -2,8 +2,10 @@ Bits PyGTK Applet
 ================
 
 A magic GTK Applet for http://bits.poul.org
+
 Stays on your status bar, featuring Websockets, browser callback, and fancy icons!
-Forked from the wise [rbino](https://github.com/rbino/bitspythonclient)
+
+*Forked from the wise [rbino](https://github.com/rbino/bitspythonclient)*
 
 Dependencies
 ----------
