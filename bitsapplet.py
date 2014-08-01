@@ -9,17 +9,6 @@ import subprocess
 import gobject
 gobject.threads_init()
 
-##### GTK things
-
-def applet_status(w, buf):
-    subprocess.call(["xdg-open", "https://bits.poul.org"])
-
-def applet_exit(w):
-    sys.exit(0)
-
-def item_print_status(status):
-    return "Bits Status: %s" % status
-
 ##### Callbacks
 
 def opened_callback():
@@ -30,13 +19,21 @@ def closed_callback():
     ind.set_icon("window-close-symbolic")
     menuitem_status.set_label(item_print_status("Closed"))
 
+def applet_status(w):
+    subprocess.call(["xdg-open", "https://bits.poul.org"])
+
+def applet_exit(w):
+    sys.exit(0)
+
+def item_print_status(status):
+    return "BITS Status: %s" % status
+
 ##### Main here
 
 status_string = "Reaching server..."
 menuitem_status = gtk.MenuItem(item_print_status(status_string))
 ind = appindicator.Indicator ("bits-gtk-client",
-                                "window-close-symbolic", #was indicator-messages
-                                #object-select-symbolic
+                                "window-close-symbolic",
                                 appindicator.CATEGORY_APPLICATION_STATUS)
 
 if __name__== "__main__":
@@ -44,12 +41,14 @@ if __name__== "__main__":
     ws = BitsWS(opened_callback, closed_callback)
     thread.start_new_thread(ws.start_websocket, ())
 
+    #necessary to display the icon on the status bar
     ind.set_status (appindicator.STATUS_ACTIVE)
     ind.set_attention_icon ("indicator-messages-new")
 
     #create all the items
     #menuitem_status is global
-    menuitem_status.connect("activate", applet_status, "lol")
+    # TODO: make an object
+    menuitem_status.connect("activate", applet_status)
     menuitem_status.show()
 
     separator = gtk.SeparatorMenuItem()
