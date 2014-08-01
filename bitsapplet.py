@@ -4,12 +4,13 @@ import websocket
 import json
 import time
 import thread
-import gobject
 import gtk
 import appindicator
 import sys
 import subprocess
 import time
+import gobject
+gobject.threads_init()
 
 ##### Websocket things
 
@@ -75,14 +76,6 @@ def closed_callback():
     ind.set_icon("window-close-symbolic")
     menuitem_status.set_label(item_print_status("Closed"))
 
-def check_status():
-    # it's wise to use this function as a timeout and not
-    # as an idle function, if we don't want 100% CPUs...
-    print "Hi GTK! You're annoying."
-    # this return True is compulsory, otherwise we'll not be called again
-    return True
-
-
 ##### Main here
 
 prev_status = ""
@@ -118,6 +111,4 @@ if __name__== "__main__":
 
     ind.set_menu(menu)
 
-    #this timeout function is necessary to refresh the things up, every $ms
-    gobject.timeout_add(500, check_status)
     gtk.main()
