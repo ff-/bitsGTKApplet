@@ -1,11 +1,15 @@
-Bits Python client
+Bits PyGTK Applet
 ================
 
-A minimal Websocket client for http://bits.poul.org
+A magic GTK Applet for http://bits.poul.org
+Stays on your status bar, featuring Websockets, browser callback, and fancy icons!
+Forked from the wise [rbino](https://github.com/rbino/bitspythonclient)
 
 Dependencies
 ----------
-Python [websocket-client](https://pypi.python.org/pypi/websocket-client/0.14.1)
+Some Python libraries:
+* [Websocket-client](https://pypi.python.org/pypi/websocket-client)
+* [Appindicator](https://launchpad.net/libappindicator)
 
 **On Debian/Ubuntu:**  
-`sudo apt-get install python-websocket`
+`sudo apt-get install python-websocket python-appindicator`
